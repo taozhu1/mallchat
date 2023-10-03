@@ -1,7 +1,6 @@
 package com.abin.mallchat.common.common.config;
 
 import com.abin.mallchat.common.common.factory.MyThreadFactory;
-import com.abin.mallchat.transaction.annotation.SecureInvokeConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -19,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Configuration
 @EnableAsync
-public class ThreadPoolConfig implements AsyncConfigurer, SecureInvokeConfigurer {
+public class ThreadPoolConfig implements AsyncConfigurer {
     /**
      * 项目共用线程池
      */
@@ -37,10 +36,6 @@ public class ThreadPoolConfig implements AsyncConfigurer, SecureInvokeConfigurer
         return mallchatExecutor();
     }
 
-    @Override
-    public Executor getSecureInvokeExecutor() {
-        return mallchatExecutor();
-    }
 
     @Bean(MALLCHAT_EXECUTOR)
     @Primary

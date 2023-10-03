@@ -78,12 +78,7 @@
             <artifactId>netty-all</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-mp</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.github.xiaoymin</groupId>
-            <!--使用Swagger2-->
             <artifactId>knife4j-spring-boot-starter</artifactId>
             <version>2.0.9</version>
         </dependency>

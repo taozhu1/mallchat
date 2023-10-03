@@ -16,9 +16,11 @@
             <groupId>com.abin.mallchat</groupId>
             <artifactId>mallchat-common-starter</artifactId>
         </dependency>
+        <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
         <dependency>
-            <groupId>com.abin.mallchat</groupId>
-            <artifactId>mallchat-transaction</artifactId>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot-starter</artifactId>
+            <version>1.36.0</version>
         </dependency>
         <dependency>
             <groupId>com.knuddels</groupId>
