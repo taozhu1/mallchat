@@ -23,6 +23,15 @@ public class NettyWebSocketServerHandler extends SimpleChannelInboundHandler<Tex
 
     private WebSocketService webSocketService;
 
+    private WebSocketService getService() {
+        return SpringUtil.getBean(WebSocketService.class);
+    }
+
+    private void userOffLine(ChannelHandlerContext ctx) {
+        this.webSocketService.removed(ctx.channel());
+        ctx.channel().close();
+    }
+
     // 当web客户端连接后，触发该方法
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
@@ -46,11 +55,6 @@ public class NettyWebSocketServerHandler extends SimpleChannelInboundHandler<Tex
         // 可能出现业务判断离线后再次触发 channelInactive
         log.warn("触发 channelInactive 掉线![{}]", ctx.channel().id());
         userOffLine(ctx);
-    }
-
-    private void userOffLine(ChannelHandlerContext ctx) {
-        this.webSocketService.removed(ctx.channel());
-        ctx.channel().close();
     }
 
     /**
@@ -84,10 +88,6 @@ public class NettyWebSocketServerHandler extends SimpleChannelInboundHandler<Tex
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         log.warn("异常发生，异常消息 ={}", cause);
         ctx.channel().close();
-    }
-
-    private WebSocketService getService() {
-        return SpringUtil.getBean(WebSocketService.class);
     }
 
     // 读取客户端发送的请求报文

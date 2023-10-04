@@ -25,6 +25,10 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName(value = "user", autoResultMap = true)
 public class User implements Serializable {
+    public User(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -53,7 +57,6 @@ public class User implements Serializable {
      */
     @TableField("sex")
     private Integer sex;
-
     /**
      * 微信openid用户标识
      */

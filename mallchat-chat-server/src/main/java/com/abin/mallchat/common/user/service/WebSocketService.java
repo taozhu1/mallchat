@@ -35,7 +35,7 @@ public interface WebSocketService {
     void authorize(Channel channel, WSAuthorize wsAuthorize);
 
     /**
-     * 扫码用户登录成功通知,清除本地Cache中的loginCode和channel的关系
+     * 扫码用户登录成功通知,清除本地Cache中的loginCode和channel的关系（因为没接扫码，这里用mq触发）
      */
     Boolean scanLoginSuccess(Integer loginCode, Long uid);
 

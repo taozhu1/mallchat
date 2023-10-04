@@ -3,7 +3,7 @@ package com.abin.mallchat.common.user.domain.enums;
 import lombok.Data;
 
 /**
- * Description: ws的基本返回信息体
+ * Description: ws的基本返回信息体 通信协议
  * Author: <a href="https://github.com/zongzibinbin">abin</a>
  * Date: 2023-03-19
  */
