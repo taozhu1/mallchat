@@ -16,7 +16,7 @@ import java.util.Objects;
 @Configuration
 public class RedisConfig {
 
-    @Bean("myRedisTemplate")
+    @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         // 创建模板
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();

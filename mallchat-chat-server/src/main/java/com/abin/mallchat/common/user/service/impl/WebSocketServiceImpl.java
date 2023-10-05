@@ -19,6 +19,9 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -29,9 +32,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
+import static com.abin.mallchat.common.common.config.ThreadPoolConfig.MALLCHAT_EXECUTOR;
+
 @Slf4j
 @Service
 public class WebSocketServiceImpl implements WebSocketService {
+
+    @Qualifier(MALLCHAT_EXECUTOR)
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     /**
      * 所有已连接的websocket连接列表和一些额外参数
@@ -192,7 +201,7 @@ public class WebSocketServiceImpl implements WebSocketService {
             if (Objects.nonNull(skipUid) && Objects.equals(ext.getUid(), skipUid)) {
                 return;
             }
-//            threadPoolTaskExecutor.execute(() -> sendMsg(channel, wsBaseResp));
+            threadPoolTaskExecutor.execute(() -> sendMsg(channel, wsBaseResp));
         });
     }
 
@@ -209,7 +218,7 @@ public class WebSocketServiceImpl implements WebSocketService {
             return;
         }
         channels.forEach(channel -> {
-//            threadPoolTaskExecutor.execute(() -> sendMsg(channel, wsBaseResp));
+            threadPoolTaskExecutor.execute(() -> sendMsg(channel, wsBaseResp));
             sendMsg(channel, wsBaseResp);
         });
     }

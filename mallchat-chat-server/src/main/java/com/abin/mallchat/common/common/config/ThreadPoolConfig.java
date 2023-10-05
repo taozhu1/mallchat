@@ -41,7 +41,7 @@ public class ThreadPoolConfig implements AsyncConfigurer {
     @Primary
     public ThreadPoolTaskExecutor mallchatExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(4);
         executor.setMaxPoolSize(10);
         executor.setQueueCapacity(200);
         executor.setThreadNamePrefix("mallchat-executor-");
@@ -54,7 +54,7 @@ public class ThreadPoolConfig implements AsyncConfigurer {
     @Bean(WS_EXECUTOR)
     public ThreadPoolTaskExecutor websocketExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(16);
+        executor.setCorePoolSize(4);
         executor.setMaxPoolSize(16);
         executor.setQueueCapacity(1000);//支持同时推送1000人
         executor.setThreadNamePrefix("websocket-executor-");
@@ -67,7 +67,7 @@ public class ThreadPoolConfig implements AsyncConfigurer {
     @Bean(AICHAT_EXECUTOR)
     public ThreadPoolTaskExecutor chatAiExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
+        executor.setCorePoolSize(4);
         executor.setMaxPoolSize(10);
         executor.setQueueCapacity(15);
         executor.setThreadNamePrefix("aichat-executor-");
