@@ -1,5 +1,6 @@
 package com.abin.mallchat.common.user.controller;
 
+import cn.dev33.satoken.stp.SaLoginConfig;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.abin.mallchat.common.user.domain.entity.User;
@@ -33,7 +34,10 @@ public class UserController {
     @PostMapping("doLogin")
     public SaResult doLogin(Long key) {
         if (accountMap.containsKey(key)) {
-            StpUtil.login(key); // 这里可以用uid 但登陆模块不是重点 所以这里随便弄弄
+            StpUtil.login(key, SaLoginConfig
+                    .setDevice("PC")
+                    .setExtra("name", accountMap.get(key).getName())
+            );
             return SaResult.data(StpUtil.getTokenInfo());
         }
         return SaResult.error("登陆失败");
@@ -42,8 +46,12 @@ public class UserController {
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
     @GetMapping("isLogin")
     public String isLogin() {
-        WSBaseResp<String> resp = new WSBaseResp<>();
-        resp.setData("当前用户已登录");
+        String loginId = (String) StpUtil.getLoginId();
+        String name = (String) StpUtil.getExtra("name");
+        User user = new User(Long.parseLong(loginId), name);
+
+        WSBaseResp<Object> resp = new WSBaseResp<>();
+        resp.setData("当前用户已登录:" + user);
         resp.setType(WSRespTypeEnum.LOGIN_SUCCESS.getType());
         webSocketService.sendToUid(resp, 1L);
         return "当前会话是否登录：" + StpUtil.isLogin();

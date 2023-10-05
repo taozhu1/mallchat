@@ -95,8 +95,8 @@ public class WebSocketServiceImpl implements WebSocketService {
         String loginId = (String) StpUtil.getLoginIdByToken(wsAuthorize.getToken());
         if (null != loginId) {//用户校验成功给用户登录
             Long uid = Long.parseLong(loginId);
-            User user = new User(uid, "user" + uid);
-            loginSuccess(channel, user, wsAuthorize.getToken());
+            String name = (String) StpUtil.getExtra(wsAuthorize.getToken(), "name");
+            loginSuccess(channel, new User(uid, name), wsAuthorize.getToken());
         } else { //让前端的token失效
             sendMsg(channel, WSAdapter.buildInvalidateTokenResp());
         }
