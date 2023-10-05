@@ -32,10 +32,7 @@ public class HttpHeadersHandler extends ChannelInboundHandlerAdapter {
             }
             NettyUtil.setAttr(ctx.channel(), NettyUtil.IP, ip);
             ctx.pipeline().remove(this);
-            ctx.fireChannelRead(request);
-        }else
-        {
-            ctx.fireChannelRead(msg);
         }
+        ctx.fireChannelRead(msg);
     }
 }

@@ -74,6 +74,10 @@ public class WebSocketServiceImpl implements WebSocketService {
         ONLINE_WS_MAP.put(channel, new WSChannelExtraDTO());
     }
 
+    /**
+     * 请求登陆二维码
+     * @param channel
+     */
     @Override
     public void handleLoginReq(Channel channel) {
         //生成随机不重复的登录码,并将channel存在本地cache中
@@ -131,7 +135,7 @@ public class WebSocketServiceImpl implements WebSocketService {
     }
 
     /**
-     * (channel必在本地)登录成功，并更新状态
+     * (前提channel必在本地)登录成功，并更新状态
      */
     private void loginSuccess(Channel channel, User user, String token) {
         //更新上线列表

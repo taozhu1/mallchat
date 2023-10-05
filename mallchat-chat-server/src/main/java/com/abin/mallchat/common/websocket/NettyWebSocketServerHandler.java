@@ -74,6 +74,7 @@ public class NettyWebSocketServerHandler extends SimpleChannelInboundHandler<Tex
                 userOffLine(ctx);
             }
         } else if (evt instanceof WebSocketServerProtocolHandler.HandshakeComplete) {
+            // 基于心跳检测 每次创建ws连接时 如果有token 进行握手连接 防止用户ws连接断了重新认证的情况
             this.webSocketService.connect(ctx.channel());
             String token = NettyUtil.getAttr(ctx.channel(), NettyUtil.TOKEN);
             if (StrUtil.isNotBlank(token)) {
