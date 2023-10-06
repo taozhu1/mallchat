@@ -37,6 +37,6 @@ public interface LoginService {
      * @param token
      * @return
      */
-    Long getValidUid(String token);
+    String getValidUid(String token);
 
 }

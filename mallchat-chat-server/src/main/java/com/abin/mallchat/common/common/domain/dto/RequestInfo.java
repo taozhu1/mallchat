@@ -1,5 +1,6 @@
 package com.abin.mallchat.common.common.domain.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Data;
  * Date: 2023-04-05
  */
 @Data
+@AllArgsConstructor
 public class RequestInfo {
     private Long uid;
     private String ip;

@@ -10,6 +10,7 @@ import com.abin.mallchat.common.user.domain.dto.WSChannelExtraDTO;
 import com.abin.mallchat.common.user.domain.entity.User;
 import com.abin.mallchat.common.user.domain.enums.WSBaseResp;
 import com.abin.mallchat.common.user.domain.vo.request.ws.WSAuthorize;
+import com.abin.mallchat.common.user.service.LoginService;
 import com.abin.mallchat.common.user.service.WebSocketService;
 import com.abin.mallchat.common.user.service.adapter.SaTokenAdapter;
 import com.abin.mallchat.common.user.service.adapter.WSAdapter;
@@ -63,6 +64,8 @@ public class WebSocketServiceImpl implements WebSocketService {
             .maximumSize(MAX_MUM_SIZE)
             .build();
 
+    @Autowired
+    private LoginService loginService;
 
     /**
      * 处理所有ws连接的事件
@@ -105,9 +108,9 @@ public class WebSocketServiceImpl implements WebSocketService {
     @Override
     public void authorize(Channel channel, WSAuthorize wsAuthorize) {
         //校验token
-        String loginId = (String) StpUtil.getLoginIdByToken(wsAuthorize.getToken());
-        if (null != loginId) {//用户校验成功给用户登录
-            Long uid = Long.parseLong(loginId);
+        String validUid = loginService.getValidUid(wsAuthorize.getToken());
+        if (null != validUid) {//用户校验成功给用户登录
+            Long uid = Long.parseLong(validUid);
             String name = (String) StpUtil.getExtra(wsAuthorize.getToken(), "name");
             loginSuccess(channel, new User(uid, name), wsAuthorize.getToken());
         } else { //让前端的token失效
