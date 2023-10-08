@@ -15,9 +15,6 @@ import java.util.Optional;
 @Component
 public class CollectorInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private LoginService loginService;
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Long uid = Optional.ofNullable(request.getAttribute(TokenInterceptor.UID))

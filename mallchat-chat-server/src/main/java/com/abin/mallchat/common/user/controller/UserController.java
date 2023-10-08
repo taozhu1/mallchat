@@ -6,8 +6,6 @@ import cn.dev33.satoken.util.SaResult;
 import com.abin.mallchat.common.common.domain.vo.response.ApiResult;
 import com.abin.mallchat.common.common.utils.RequestHolder;
 import com.abin.mallchat.common.user.domain.entity.User;
-import com.abin.mallchat.common.user.domain.enums.WSBaseResp;
-import com.abin.mallchat.common.user.domain.enums.WSRespTypeEnum;
 import com.abin.mallchat.common.user.service.WebSocketService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,21 +43,6 @@ public class UserController {
             return SaResult.data(StpUtil.getTokenInfo());
         }
         return SaResult.error("登陆失败");
-    }
-
-    // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
-    @GetMapping("isLogin")
-    @ApiOperation("用户是否登陆")
-    public String isLogin() {
-        String loginId = (String) StpUtil.getLoginId();
-        String name = (String) StpUtil.getExtra("name");
-        User user = new User(Long.parseLong(loginId), name);
-
-        WSBaseResp<Object> resp = new WSBaseResp<>();
-        resp.setData("当前用户已登录:" + user);
-        resp.setType(WSRespTypeEnum.LOGIN_SUCCESS.getType());
-        webSocketService.sendToUid(resp, 1L);
-        return "当前会话是否登录：" + StpUtil.isLogin();
     }
 
     @GetMapping("/public/userInfo")
