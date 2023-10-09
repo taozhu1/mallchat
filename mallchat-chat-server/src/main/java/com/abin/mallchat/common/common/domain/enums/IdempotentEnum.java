@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public enum IdempotentEnum {
     UID(1, "uid"),
     MSG_ID(2, "消息id"),
+    ORDER_ID(3, "订单id"),
     ;
 
     private final Integer type;
