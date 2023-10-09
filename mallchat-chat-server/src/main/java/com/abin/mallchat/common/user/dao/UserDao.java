@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.abin.mallchat.common.common.domain.enums.NormalOrNoEnum;
 import com.abin.mallchat.common.common.domain.vo.request.CursorPageBaseReq;
 import com.abin.mallchat.common.common.domain.vo.response.CursorPageBaseResp;
+import com.abin.mallchat.common.common.utils.AssertUtil;
 import com.abin.mallchat.common.common.utils.CursorUtils;
 import com.abin.mallchat.common.user.domain.entity.User;
 import com.abin.mallchat.common.user.domain.enums.ChatActiveStatusEnum;
